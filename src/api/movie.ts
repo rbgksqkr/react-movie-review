@@ -1,16 +1,16 @@
 import { Movie } from "../types/movie";
+import fetcher from "./fetcher";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
-const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
 
-const popular = "movie/popular?language=en-US&page=1";
+const URL = {
+  popular: (page: number) =>
+    `${BASE_URL}/movie/popular?language=en-US&page=${page}`,
+};
 
-export const fetchMovieList = async (): Promise<Movie[]> => {
-  const response = await fetch(`${BASE_URL}/${popular}`, {
-    headers: {
-      Authorization: `Bearer ${ACCESS_TOKEN}`,
-      accept: "application/json",
-    },
+export const fetchMovieList = async (page: number = 1): Promise<Movie[]> => {
+  const response = await fetcher.get({
+    url: URL.popular(page),
   });
 
   const data = await response.json();

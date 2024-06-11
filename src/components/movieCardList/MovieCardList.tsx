@@ -1,45 +1,52 @@
 import styles from "./MovieCardList.module.css";
-import { Movie } from "../../types/movie";
+// import { Movie } from "../../types/movie";
 import MovieCard from "../movieCard/MovieCard";
-import { fetchMovieList } from "../../api/movie";
-import { useEffect, useState } from "react";
+// import { fetchMovieList } from "../../api/movie";
+// import { useEffect, useState } from "react";
+import useFetchMovieQuery from "../../hooks/useFetchMovieQuery";
+import { useRef } from "react";
+import InfinityScrollProvider from "../common/InfinityScrollProvider";
 
 const IMAGE_BASE_URL = import.meta.env.VITE_IMAGE_BASE_URL;
 
 const MovieCardList = () => {
-  const [movieList, setMovieList] = useState<Movie[]>([]);
-  const [page, setPage] = useState(1);
+  const { data, isLoading, hasNextPage, fetchNextPage } = useFetchMovieQuery();
+  const bottomRef = useRef(null);
 
-  const handleClickLoadMore = () => {
-    setPage((prev) => prev + 1);
-  };
-
-  useEffect(() => {
-    fetchMovieList(page).then((res) => {
-      setMovieList((prevMovieList) => [...prevMovieList, ...res]);
-    });
-  }, [page]);
+  if (isLoading) return <div>Loading...</div>;
 
   return (
-    <section className={styles.itemView}>
-      <h2>지금 인기 있는 영화</h2>
-      <ul className={styles.itemList}>
-        {movieList.map((movie) => (
-          <MovieCard
-            key={movie.id}
-            imageUrl={IMAGE_BASE_URL + movie.poster_path}
-            title={movie.title}
-            score={movie.vote_average}
-          />
-        ))}
-      </ul>
-      <button
-        className={`${styles.btn} ${styles.primary} ${styles.fullWidth}`}
-        onClick={handleClickLoadMore}
-      >
-        더 보기
-      </button>
-    </section>
+    <InfinityScrollProvider
+      bottomRef={bottomRef}
+      fetchNextPage={fetchNextPage}
+      isLoading={isLoading}
+    >
+      <section className={styles.itemView}>
+        <h2>지금 인기 있는 영화</h2>
+        <ul className={styles.itemList}>
+          {data &&
+            data.pages.map((page) =>
+              page.results.map((movie, idx) => (
+                <MovieCard
+                  key={`${movie.id}_${idx}`}
+                  imageUrl={IMAGE_BASE_URL + movie.poster_path}
+                  title={movie.title}
+                  score={movie.vote_average}
+                />
+              ))
+            )}
+        </ul>
+
+        {hasNextPage && (
+          <div
+            ref={bottomRef}
+            style={{ height: 100, backgroundColor: "white" }}
+          >
+            더보기
+          </div>
+        )}
+      </section>
+    </InfinityScrollProvider>
   );
 };
 

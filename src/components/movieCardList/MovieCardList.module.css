@@ -1,0 +1,46 @@
+.itemList {
+    display: grid;
+    margin: 48px 0;
+    grid-template-columns: repeat(4, 180px);
+    grid-column-gap: 160px;
+    grid-row-gap: 48px;
+}
+
+.itemView,
+.itemTest {
+    width: 100%;
+}
+
+.itemView {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.itemView h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    user-select: none;
+}
+
+
+.fullWidth {
+    width: 100%;
+}
+
+.lastItem {
+    margin-top: 48px;
+}
+
+button.btn {
+    border: 0;
+    border-radius: 8px;
+    height: 30px;
+    color: #fff;
+}
+
+button.primary {
+    background: #f33f3f;
+}

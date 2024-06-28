@@ -34,6 +34,7 @@ const MovieCardList = () => {
               page.results.map((movie, idx) => (
                 <MovieCard
                   key={`${movie.id}_${idx}`}
+                  id={movie.id}
                   imageUrl={IMAGE_BASE_URL + movie.poster_path}
                   title={movie.title}
                   score={movie.vote_average}

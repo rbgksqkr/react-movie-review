@@ -1,11 +1,11 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { fetchMovieList } from "../api/movie";
 
-const useFetchMovieQuery = () => {
+const useFetchMovieQuery = (queryTitle: string) => {
   return useInfiniteQuery({
-    queryKey: ["movieList"],
+    queryKey: ["movieList", queryTitle],
     queryFn: ({ pageParam }) => {
-      return fetchMovieList(pageParam);
+      return fetchMovieList(pageParam, queryTitle);
     },
     initialPageParam: 1,
     getNextPageParam: (lastPage, _, lastPageParam) => {
@@ -15,6 +15,7 @@ const useFetchMovieQuery = () => {
 
       return lastPageParam + 1;
     },
+    staleTime: 60 * 60 * 1000,
   });
 };
 

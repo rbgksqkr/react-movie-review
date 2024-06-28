@@ -11,15 +11,12 @@ const URL = {
 };
 
 export const fetchMovieList = async (
-  page: number = 1
+  page: number = 1,
+  query?: string
 ): Promise<MovieResponse> => {
   const response = await fetcher.get({
-    url: URL.popular(page),
+    url: query ? URL.search(page, query) : URL.popular(page),
   });
 
   return await response.json();
-};
-  const data = await response.json();
-
-  return data.results;
 };

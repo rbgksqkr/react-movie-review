@@ -1,3 +1,4 @@
+import "./reset.css";
 import "./App.module.css";
 
 import MovieCardList from "./components/movieCardList/MovieCardList";

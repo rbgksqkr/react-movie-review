@@ -15,7 +15,7 @@ const MovieCard = ({ imageUrl, title, score }: MovieCardProps) => {
           className={styles.itemThumbnail}
           src={imageUrl}
           loading="lazy"
-          alt="앤트맨과 와스프: 퀀텀매니아"
+          alt={title}
         />
         <p className={styles.itemTitle}>{title}</p>
         <p className={styles.itemScore}>

@@ -33,7 +33,6 @@ const Header = () => {
           value={searchValue}
           onChange={handleChange}
         />
-        <button className={styles.searchButton}>검색</button>
       </form>
     </header>
   );

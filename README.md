@@ -1,4 +1,15 @@
 # react-movie-review
+- 바닐라 타입스크립트로 구현했던 미션을 React로 구현
+  - React, Typescript, Tanstack-Query, vite
+
+- 배포 사이트 : https://rbgksqkr.github.io/react-movie-review/
+
+- 동작 가능한 0.1 버전까지만 구현
+- 바닐라 타입스크립트로 구현했을 때 불편했던 점을 React로 해결하기
+  - 이벤트가 발생했을 때, 멀리 떨어져 있는 DOM에 변경사항 반영하기
+    - 에러 발생 시 custom event를 발생시켜 Toast UI 렌더링
+  - 클래스로 컴포넌트처럼 만들다보니 필드값이나 함수를 사용하기 위해 인스턴스를 넘겨야함
+    - props로 state와 props를 넘겨 사용
 
 ### 앱의 핵심 기능 1문장
 
@@ -11,7 +22,7 @@
 - 영화 검색 시 결과 영화 목록을 보여준다.
 - 포스터 클릭 시 해당 영화 정보가 모달에 뜬다.
 
-### 추가 구현 사항
+### 추가 구현 사항 (현재 구현 X)
 
 - 영화 목록 아이템에 대한 Skeleton UI를 구현한다.
 - 서버 에러 발생 시 토스트 메세지를 보여준다.
